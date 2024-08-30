@@ -1,0 +1,1 @@
+Use this file for any thoughts or comments you'd like to share with us regarding your submission. Be it for the justification of certain implementation decisions, comments about missing features, explanations or other things that we should be aware of when evaluating your solution (e.g. steps to follow).

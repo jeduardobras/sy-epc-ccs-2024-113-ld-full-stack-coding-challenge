@@ -1,0 +1,39 @@
+{
+    "configurations": [
+        {
+            "name": "Part 1 server: Attach",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "port": 5679,
+                "host": "127.0.0.1"
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/part-1",
+                    "remoteRoot": "/home/app"
+                }
+            ],
+            "justMyCode": false,
+            "subProcess": true
+        },
+        {
+            "name": "Part 2 solver: Attach",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "port": 5678,
+                "host": "127.0.0.1"
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/part-2",
+                    "remoteRoot": "/app"
+                }
+            ],
+            "justMyCode": false,
+            "subProcess": true
+        }
+
+    ]
+}

@@ -1,0 +1,30 @@
+x-image: &service-common-image
+  image: python:3.12-slim
+
+x-common: &service-common-config
+  working_dir: /app
+  volumes:
+    - ./:/app
+
+
+services:
+  runner: 
+    <<: [*service-common-image, *service-common-config]
+    container_name: runner
+    entrypoint: /bin/bash
+    command: [ "-c", "sleep infinity" ]
+
+  python: 
+    <<: [*service-common-image, *service-common-config]
+    container_name: runner-once
+    entrypoint: python -m
+
+  debugger:
+    <<: *service-common-config
+    build:
+      context: .
+    container_name: debugger-once
+    entrypoint: python -m debugpy --log-to-stderr --listen 0.0.0.0:5678 --wait-for-client -m
+    ports:
+      - "127.0.0.1:5678:5678"
+

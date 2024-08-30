@@ -1,0 +1,127 @@
+x-server-common: &server-common-config
+  build: ./server
+  container_name: server
+  depends_on:
+    - db
+  restart: unless-stopped
+  volumes:
+    - ./server:/home/app/server:ro
+    - ../part-2:/home/app/part2:ro
+  environment:
+    DB_HOST: db
+    DB_PORT: 5432
+    DB_USERNAME: staff_user
+    DB_PASSWORD: staff_password
+    DB_DATABASE: db
+  labels:
+    - "traefik.enable=true"
+    - "traefik.http.middlewares.server-strip-prefix.stripprefix.prefixes=/api"
+    - "traefik.http.middlewares.server-strip-prefix.stripprefix.forceSlash=false"
+    # HTTP
+    - "traefik.http.routers.server.rule=PathPrefix(`/api`)"
+    - "traefik.http.routers.server.entrypoints=web"
+    - "traefik.http.routers.server.middlewares=server-strip-prefix@docker"
+    # HTTPS
+    - "traefik.http.routers.server-secure.rule=PathPrefix(`/api`)"
+    - "traefik.http.routers.server-secure.entrypoints=web-secure"
+    - "traefik.http.routers.server-secure.tls=true"
+    - "traefik.http.routers.server-secure.middlewares=server-strip-prefix@docker"
+
+x-client-common: &client-common-config
+  container_name: client
+  build: ./client
+  expose:
+    - "3000"
+  labels:
+    - "traefik.enable=true"
+    # HTTP
+    - "traefik.http.routers.client.rule=PathPrefix(`/client`)"
+    - "traefik.http.routers.client.entrypoints=web"
+    # HTTPS
+    - "traefik.http.routers.client-secure.rule=PathPrefix(`/client`)"
+    - "traefik.http.routers.client-secure.entrypoints=web-secure"
+    - "traefik.http.routers.client-secure.tls=true"
+  volumes:
+    - ./client/dist/assets:/opt/app/assets:ro
+    - ./client/src:/opt/app/src:ro
+    - ./client/public:/opt/app/public:ro
+    - ./client/index.html:/opt/app/index.html:ro
+    - ./client/vite.config.js:/opt/app/vite.config.js:ro
+
+
+services:
+  db:
+    container_name: db
+    image: postgres:15.1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: staff_user
+      POSTGRES_PASSWORD: staff_password
+      POSTGRES_DB: db
+    volumes:
+      - part-1-data:/var/lib/postgresql/data
+      - ./scripts/initdb.sql:/docker-entrypoint-initdb.d/init_db.sql
+  
+  server:
+    <<: *server-common-config
+    ports:
+      - "8000"
+    profiles:
+      - app
+  server_debug:
+    <<: *server-common-config
+    ports:
+      - "8000"
+      - "5679:5679"
+    profiles:
+      - debug
+    entrypoint: python3 -m debugpy --log-to-stderr --listen 0.0.0.0:5679 --wait-for-client -m
+    # Setting entrypoint in docker-compose sets the underlying Dockerfile's CMD to null. Workaround.
+    command: ["uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  client:
+    <<: *client-common-config
+    profiles:
+      - app
+    depends_on:
+      - server
+  client_debug:
+    <<: *client-common-config
+    profiles:
+      - debug
+    depends_on:
+      - server_debug
+
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: traefik:2.11.8
+    profiles:
+      - app
+      - debug
+    command:
+      - "--log.level=DEBUG"
+      - "--api.dashboard=true"
+      - "--entrypoints.web.address=:8000"
+      - "--entrypoints.web.address=:8001"
+      - "--entrypoints.web-secure.address=:8443"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--api.insecure=true"
+      - "--providers.file.directory=/configuration"
+      - "--providers.file.watch=true"
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+      - "8001:8001"
+      - "8443:8443"
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./development-certs/localhost.crt:/etc/certs/localhost.crt:ro
+      - ./development-certs/localhost.key:/etc/certs/localhost.key:ro
+      - ./traefik/development-dynamic-config.yml:/configuration/dynamic.yml:ro
+
+volumes:
+  part-1-data:
+    external: true
