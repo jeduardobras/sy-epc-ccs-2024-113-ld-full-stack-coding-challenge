@@ -121,7 +121,7 @@ To solve this challenge, you must follow the instructions given by the README.md
 
 ### 4.1 Evaluation of Your Submission
 Please note that we will evaluate your submission based on the following aspects, ordered by importance (most important first).
-1. Functionality: Does the provided solution work? Does it correctly do what was asked?
+1. Functionality and UX: Does the provided solution work? Does it correctly do what was asked? Does it do so with good usability (i.e. does it provide a good user experience)?
 2. Code Quality: Is the code clean, readable, and maintainable? Are best practices followed?
 3. Performance: Is the solution scalable? How performant does it work for complex datasets?
 
