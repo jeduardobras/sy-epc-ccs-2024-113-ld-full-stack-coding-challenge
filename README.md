@@ -106,6 +106,7 @@ To solve this challenge, you must follow the instructions given by the README.md
 <a name="solving-constraints"></a>
 
 ### 3.2 Challenge Constraints
+- Please keep your repository private. Do not fork or publish this challenge. We would like to avoid your progress being copied by other candidates.
 - This challenge is meant to represent a real world scenario, so please implement it just as you would while working in a real office environment.
 - This challenge is to be solved by you alone. If this challenge overwhelms you, the actual job will do so, too.
 - You are free to use AI assistance tools (e.g. github copilot, chatgpt, ...), web search, documentation, tutorials, etc.

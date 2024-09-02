@@ -254,8 +254,10 @@ In addition to the general [Challenge Constraints](../README.md/solving-constrai
 - Please implement your solution with the [Vue.js](https://github.com/vuejs) and [FastAPI](https://github.com/fastapi/fastapi) frameworks.
 - Please use [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy) and the provided Postgres database for persistence.
 - Please use the technology versions as specified by the [`client/Dockerfile`](./client/Dockerfile), [`client/package.json`](./client/package.json), [`server/Dockerfile`](./server/Dockerfile) and [`server/requirements.txt`](./server/requirements.txt).
-- Please only use packages that are being shipped with the development environment. This concerns both, front-end and back-end. If you feel the strong need for additional libraries/packages, please consult with us (we might have missed something). For example, for the front-end, [`client/package.json`](./client/package.json) includes the packages `vue`, `pinia`, and `vuetify` which should be sufficient for completing this challenge.\
+- Please only use packages that are being shipped with the development environment. This concerns both, front-end and back-end. For example, for the front-end, [`client/package.json`](./client/package.json) includes the packages `vue`, `pinia`, and `vuetify` which should be sufficient for completing this challenge.\
 **Exception**: You are allowed to use front-end libraries of your choice to implement the [statistics feature](req-statistics). Please indicate your choice clearly (e.g. in [../COMMENTS.md](../COMMENTS.md)).
+- We explicitly ask you to use JavaScript and not TypeScript.
+- If you feel the strong need for additional libraries/packages, please consult with us (we might have missed something).
 
 ---
 
