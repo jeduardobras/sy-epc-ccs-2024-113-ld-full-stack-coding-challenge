@@ -250,7 +250,7 @@ In our section we use the VS Code IDE, so we provide a `vscode` debug configurat
 <a name="dev-constraints"></a>
 
 ### 4.4 Development Constraints
-In addition to the general [Challenge Constraints](../README.md/solving-constraints), please also respect the following for Part I specific constraints:
+In addition to the general [Challenge Constraints](../README.md#solving-constraints), please also respect the following for Part I specific constraints:
 - Please implement your solution with the [Vue.js](https://github.com/vuejs) and [FastAPI](https://github.com/fastapi/fastapi) frameworks.
 - Please use [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy) and the provided Postgres database for persistence.
 - Please use the technology versions as specified by the [`client/Dockerfile`](./client/Dockerfile), [`client/package.json`](./client/package.json), [`server/Dockerfile`](./server/Dockerfile) and [`server/requirements.txt`](./server/requirements.txt).

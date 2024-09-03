@@ -261,7 +261,7 @@ In our section we use the VS Code IDE, so we provide a `vscode` debug configurat
 <a name="dev-constraints"></a>
 
 ### 3.4 Development Constraints
-In addition to the general [Challenge Constraints](../README.md/solving-constraints), please also respect the following for Part II specific constraints:
+In addition to the general [Challenge Constraints](../README.md#solving-constraints), please also respect the following for Part II specific constraints:
 
 - Please make sure to use the provided containerized environment to implement your solution. I.e.
   - using python 3.12.
