@@ -13,19 +13,6 @@ x-server-common: &server-common-config
     DB_USERNAME: staff_user
     DB_PASSWORD: staff_password
     DB_DATABASE: db
-  labels:
-    - "traefik.enable=true"
-    - "traefik.http.middlewares.server-strip-prefix.stripprefix.prefixes=/api"
-    - "traefik.http.middlewares.server-strip-prefix.stripprefix.forceSlash=false"
-    # HTTP
-    - "traefik.http.routers.server.rule=PathPrefix(`/api`)"
-    - "traefik.http.routers.server.entrypoints=web"
-    - "traefik.http.routers.server.middlewares=server-strip-prefix@docker"
-    # HTTPS
-    - "traefik.http.routers.server-secure.rule=PathPrefix(`/api`)"
-    - "traefik.http.routers.server-secure.entrypoints=web-secure"
-    - "traefik.http.routers.server-secure.tls=true"
-    - "traefik.http.routers.server-secure.middlewares=server-strip-prefix@docker"
 
 x-client-common: &client-common-config
   container_name: client
@@ -69,6 +56,20 @@ services:
       - "8000"
     profiles:
       - app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.server.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.server-strip-prefix.stripprefix.prefixes=/api"
+      - "traefik.http.middlewares.server-strip-prefix.stripprefix.forceSlash=false"
+      # HTTP
+      - "traefik.http.routers.server.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.server.entrypoints=web"
+      - "traefik.http.routers.server.middlewares=server-strip-prefix@docker"
+      # HTTPS
+      - "traefik.http.routers.server-secure.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.server-secure.entrypoints=web-secure"
+      - "traefik.http.routers.server-secure.tls=true"
+      - "traefik.http.routers.server-secure.middlewares=server-strip-prefix@docker"
   server_debug:
     <<: *server-common-config
     ports:
@@ -76,6 +77,20 @@ services:
       - "5679:5679"
     profiles:
       - debug
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.server_debug.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.server-strip-prefix.stripprefix.prefixes=/api"
+      - "traefik.http.middlewares.server-strip-prefix.stripprefix.forceSlash=false"
+      # HTTP
+      - "traefik.http.routers.server.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.server.entrypoints=web"
+      - "traefik.http.routers.server.middlewares=server-strip-prefix@docker"
+      # HTTPS
+      - "traefik.http.routers.server-secure.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.server-secure.entrypoints=web-secure"
+      - "traefik.http.routers.server-secure.tls=true"
+      - "traefik.http.routers.server-secure.middlewares=server-strip-prefix@docker"
     entrypoint: python3 -m debugpy --log-to-stderr --listen 0.0.0.0:5679 --wait-for-client -m
     # Setting entrypoint in docker-compose sets the underlying Dockerfile's CMD to null. Workaround.
     command: ["uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
