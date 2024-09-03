@@ -232,11 +232,6 @@ Please let us know if you encounter any issue while trying to launch the provide
 <a name="dev-debugging"></a>
 
 ### 4.3 Debugging
-
----
-⚠️ Note: We have been informed that there seems to be an issue with debugging part-1 for some candidates. We are working on a solution and will update the repository / instructions in the coming days.
-
----
 If you have the need for a debugger during development, you can use the following command to run the app's backend within a `debugpy` process that is served on port `5679`:
 ```sh
 docker compose --profile debug up
