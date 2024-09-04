@@ -196,3 +196,8 @@ t5 - User changes puzzle state in Firefox from S1 to S3
 t6 - User reloads page in Chrome - and sees the puzzle in state S3 (even though the last puzzle state in Chrome was S2)
 ```
 **A09:** Your understanding is generally correct. Ideally, the browsers should be aware of the current puzzle state at all times. E.g. in t5, Firefox could know that the puzzle is in S2.
+
+---
+
+**Q10:** What does data inconsisty mean in the context of the Puzzle Progress feature of Part 1?\
+**A10:** A data inconsistency would be if Browser A would allow to diverge into a state which couldn't be reached from Browser B. For example, if there would be 3 tiles on A's square, but B's square would be empty, placing a tile on B's square would result in an invalid transition from the perspective of A (going from 3 tiles to 1 tile in a single action). To avoid this, you always have to maintain the newest state across browsers.
