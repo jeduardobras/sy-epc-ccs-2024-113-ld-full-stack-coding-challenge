@@ -3,7 +3,7 @@
 ## Table of Contents
 1. [Introduction](#intro)
 2. [The Puzzle Game](#puzzle-game)\
-2.1 [Game Objective](#puzzleobjective)\
+2.1 [Game Objective](#puzzle-objective)\
 2.2 [Game Rules](#puzzle-rules)\
 2.3 [Puzzle Example](#puzzle-example)\
 2.4 [Puzzle Definitions](#puzzle-definitions)
@@ -14,6 +14,7 @@
 4. [Submission](#submission)\
 4.1 [Evaluation of Your Submission](#sub-eval)\
 4.2 [How to Submit Your Solution](#sub-how)
+5. [FAQ](#faq)
 
 <a name="intro"></a>
 
@@ -135,6 +136,63 @@ Please note that we will evaluate your submission based on the following aspects
    - submit it before the stated deadline.
    - submit it by uploading it to the linked location.
 
+Good luck :)
+
+<a name="faq"></a>
+
+## 5. FAQ
+Before contacting us, please have a look at the frequently asked questions below, which might answer some of the questions you have.
+
 ---
 
-Good luck :)
+**Q01:** Can I fork the repository and keep it public?\
+**A01:** No. Please keep the repository private. We want to avoid that candidates can view the progress of other candidates that are working on the same challenge.
+
+---
+
+**Q02:** Can I use other technologies for my solution (e.g. TypeScript, Angular, React, Django, Flask, ...) ?\
+**A02:** No. It would require additional packages, which is not allowed according to the challenge constraints. We want that candidates use the same technologies, so we can ensure an equal comparison of the submissions.
+
+---
+
+
+**Q03:** I think the list of allowed packages is incomplete. Implementing feature XYZ without package ABC would be reinventing the wheel. Can I add package ABC?
+**A03:** Reach out to us. We will review the package and decide if it can be included. If yes, then it will be available to all candidates.
+
+---
+
+**Q04:** Does the UI/UX influence the evaluation of the submission?\
+**A04:** Yes. We take the user experience of your solution into account and it is going to be evaluated as strong as the functionality of the solution.
+
+---
+
+**Q05:** Is a puzzle considered solvable, if its tile deck contains only cards that are made up of the same color on all sides (i.e. only one color is used) ?\
+**A05:** Yes. In this case, the puzzle is automatically solved in any possible arrangement.
+
+---
+
+**Q06:** While playing a game, can a user rotate the tiles in anti-clockwise direction too? Specifically can a user rotate a tile from 0° to 270° in one step?\
+**A06:** This is up to you. You can implement it in a way that you believe provides a good user experience. It's just important that all four rotation steps can be reached.
+
+---
+
+**Q07:** Can a user rate a game only once they've successfully finished the game (state = SOLVED), or can they also rate it while the state is NEW or STARTED?\
+**A07:** Puzzles can only be rated in state SOLVED.
+
+---
+
+**Q08:** Candidates can choose which and how statistics should be displayed for the Puzzle statistics feature of Part I. Given this, if I only have enough time to either implement all described statistics or attempt Part II of the challenge, which one should I prioritize?\
+**A08:** That's correct, you can choose which statistics you want to display and how you want to display them. You should prioritize Part 2 over delivering the full set of statistics.
+
+---
+
+**Q09:** I would like to verify if my understanding of the Puzzle Progress feature of Part I is correct. Could you please let me know if the underlined statements below are correct:
+```
+t1 - User opens a puzzle in browser Firefox
+t2 - User changes puzzle state to S1 in Firefox
+t3 - User opens same puzzle in Chrome and sees the puzzle in state S1
+t4 - User changes puzzle state in Chrome from S1 to S2
+t5 - User changes puzzle state in Firefox from S1 to S3
+t6 - User reloads page in Chrome - and sees the puzzle in state S3 (even though the last puzzle state in Chrome was S2)
+```
+**A09:** Your understanding is generally correct. Ideally, the browsers should be aware of the current puzzle state at all times. E.g. in t5, Firefox could know that the puzzle is in S2.
