@@ -129,7 +129,7 @@ Therefore,
 ⚠️ Note:
    - This feature should only be available for logged in users.
    - Make sure to avoid data inconsistencies. E.g. if the same user opens the same puzzle in two browsers
-      - performing different actions should not cause data inconsistencies or data loss from either of the browser instances.
+      - performing different actions should not cause data inconsistencies or data loss from either of the browser instances. I.e. Browser A's progress should not be able to diverge from Browser B's progress.
       - performing an action should be valid in respect to the current puzzle progress, independent from which browser instance it was performed.
       - the timer should pause if the current user has no browser / tab open on this puzzle's playing view
 
